@@ -1,7 +1,7 @@
 ﻿using ApplyingGenericRepositoryPattern.Entities;
 using ApplyingGenericRepositoryPattern.Helpers;
 
-namespace ApplyingGenericRepositoryPattern.Services.Contracts;
+namespace ApplyingGenericRepositoryPattern.Repository;
 
 public interface IFeatureService
 {

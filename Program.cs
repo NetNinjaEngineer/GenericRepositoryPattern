@@ -1,7 +1,6 @@
 using ApplyingGenericRepositoryPattern.Data;
 using ApplyingGenericRepositoryPattern.Repository;
-using ApplyingGenericRepositoryPattern.Services;
-using ApplyingGenericRepositoryPattern.Services.Contracts;
+using ApplyingGenericRepositoryPattern.Repository.Implementation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

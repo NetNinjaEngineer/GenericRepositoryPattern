@@ -1,5 +1,5 @@
 ﻿using ApplyingGenericRepositoryPattern.Entities;
-using ApplyingGenericRepositoryPattern.Services.Contracts;
+using ApplyingGenericRepositoryPattern.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 

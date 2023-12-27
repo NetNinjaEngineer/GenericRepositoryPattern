@@ -2,10 +2,9 @@
 using ApplyingGenericRepositoryPattern.Dtos;
 using ApplyingGenericRepositoryPattern.Entities;
 using ApplyingGenericRepositoryPattern.Helpers;
-using ApplyingGenericRepositoryPattern.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApplyingGenericRepositoryPattern.Services;
+namespace ApplyingGenericRepositoryPattern.Repository.Implementation;
 
 public class FeatureService(ApplicationDbContext context) : IFeatureService
 {

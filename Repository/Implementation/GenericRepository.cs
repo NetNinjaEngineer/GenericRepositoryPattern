@@ -1,9 +1,8 @@
-﻿
-using ApplyingGenericRepositoryPattern.Data;
+﻿using ApplyingGenericRepositoryPattern.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ApplyingGenericRepositoryPattern.Repository;
+namespace ApplyingGenericRepositoryPattern.Repository.Implementation;
 
 public class GenericRepository<T>(ApplicationDbContext context) : IGenericRepository<T> where T : class
 {

@@ -136,3 +136,4 @@ C:\Users\Mohamed ElHelaly\source\repos\ApplyingGenericRepositoryPattern\Applying
 C:\Users\Mohamed ElHelaly\source\repos\ApplyingGenericRepositoryPattern\ApplyingGenericRepositoryPattern\obj\Debug\net8.0\ApplyingGenericRepositoryPattern.pdb
 C:\Users\Mohamed ElHelaly\source\repos\ApplyingGenericRepositoryPattern\ApplyingGenericRepositoryPattern\obj\Debug\net8.0\ApplyingGenericRepositoryPattern.genruntimeconfig.cache
 C:\Users\Mohamed ElHelaly\source\repos\ApplyingGenericRepositoryPattern\ApplyingGenericRepositoryPattern\obj\Debug\net8.0\ref\ApplyingGenericRepositoryPattern.dll
+C:\Users\Mohamed ElHelaly\source\repos\ApplyingGenericRepositoryPattern\ApplyingGenericRepositoryPattern\obj\Debug\net8.0\ApplyingGenericRepositoryPattern.sourcelink.json
