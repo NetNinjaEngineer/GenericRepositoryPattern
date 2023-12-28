@@ -4,9 +4,12 @@ using System.Linq.Expressions;
 
 namespace ApplyingGenericRepositoryPattern.Repository.Implementation;
 
-public class GenericRepository<T>(ApplicationDbContext context) : IGenericRepository<T> where T : class
+public class GenericRepository<T>(ApplicationDbContext context)
+    : IGenericRepository<T> where T : class
 {
-    public readonly ApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context = context;
+    private DbSet<T> _dbSet = context.Set<T>();
+
 
     public async Task<T> Create(T entity)
     {
@@ -22,17 +25,38 @@ public class GenericRepository<T>(ApplicationDbContext context) : IGenericReposi
         return entity;
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
-        var entities = _context.Set<T>();
-        return await entities.ToListAsync();
+        IQueryable<T> query = _dbSet;
+
+        foreach (var include in includes)
+            query = query.Include(include);
+
+        return await query.ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(Expression<Func<T, bool>> condition)
+    private string GetPrimaryKeyName(Type type)
     {
-        var entity = await _context.Set<T>().FirstOrDefaultAsync(condition);
-        return entity!;
+        var entityType = _context.Model.FindEntityType(type);
+        return entityType.FindPrimaryKey().Properties.FirstOrDefault()?.Name;
     }
+
+
+
+    public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = _dbSet;
+
+        foreach (var include in includes)
+            query = query.Include(include);
+
+        var primaryKeyName = GetPrimaryKeyName(typeof(T));
+
+        var entity = await query.SingleAsync(e => EF.Property<int>(e, primaryKeyName) == id);
+
+        return entity;
+    }
+
 
     public async Task<T> Update(T entity)
     {

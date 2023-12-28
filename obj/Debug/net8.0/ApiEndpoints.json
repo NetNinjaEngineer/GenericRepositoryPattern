@@ -1,5 +1,47 @@
 [
   {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.CoursesController",
+    "Method": "GetCourseByIdAsync",
+    "RelativePath": "api/Courses/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.CoursesController",
+    "Method": "GetCoursesAsync",
+    "RelativePath": "api/Courses/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.CoursesController",
+    "Method": "PostAsync",
+    "RelativePath": "api/Courses/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ApplyingGenericRepositoryPattern.Dtos.CourseRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StudentManagement.API.Controllers.FeaturesController",
     "Method": "UpdateEnrollementAsync",
     "RelativePath": "api/Features/{studentId}/{courseId}",
