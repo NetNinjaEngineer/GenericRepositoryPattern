@@ -10,7 +10,7 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
     {
         builder.HasKey(c => c.CourseId);
         builder.Property(c => c.CourseId)
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd();
 
         builder.Property(c => c.CourseName)
             .HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
@@ -30,8 +30,7 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
         builder.HasOne(x => x.Department)
             .WithMany(x => x.Courses)
             .HasForeignKey(x => x.DepartmentId)
-            .OnDelete(DeleteBehavior.SetNull)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.ToTable("Courses");
     }

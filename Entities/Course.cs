@@ -9,8 +9,8 @@ public class Course
     public int? PreRequest { get; set; }
     public int? CourseMark { get; set; }
 
-    public Department? Department { get; set; }
-    public int? DepartmentId { get; set; }
+    public Department Department { get; set; }
+    public int DepartmentId { get; set; }
 
     public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
     public ICollection<Student> Students { get; set; } = new List<Student>();
