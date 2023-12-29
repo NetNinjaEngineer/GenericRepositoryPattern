@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApplyingGenericRepositoryPattern")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe777be576830b80bec784ce3826631c567a9bae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25a93aef5803729dfd0f9dc3848801f879468d29")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApplyingGenericRepositoryPattern")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApplyingGenericRepositoryPattern")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

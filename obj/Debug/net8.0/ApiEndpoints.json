@@ -38,6 +38,22 @@
   },
   {
     "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.CoursesController",
+    "Method": "DeleteCourseAsync",
+    "RelativePath": "api/Courses/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.CoursesController",
     "Method": "GetAllCoursesAsync",
     "RelativePath": "api/Courses/GetAll",
     "HttpMethod": "GET",
@@ -82,6 +98,350 @@
       {
         "Name": "DepartmentId",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.DepartmentsController",
+    "Method": "DeleteDeparmentAsync",
+    "RelativePath": "api/Departments/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.DepartmentsController",
+    "Method": "UpdateDepartmentAsync",
+    "RelativePath": "api/Departments/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "ApplyingGenericRepositoryPattern.Dtos.DepartmentRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.DepartmentsController",
+    "Method": "GetAllDepartmentsAsync",
+    "RelativePath": "api/Departments/GetAllDepartments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.DepartmentsController",
+    "Method": "GetDepartmentAsync",
+    "RelativePath": "api/Departments/GetDepartment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.DepartmentsController",
+    "Method": "PostDepartmentAsync",
+    "RelativePath": "api/Departments/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ApplyingGenericRepositoryPattern.Dtos.DepartmentRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "UpdateEnrollementAsync",
+    "RelativePath": "api/Features/{studentId}/{courseId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentMark",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "CalculateTotalGPAFor",
+    "RelativePath": "api/Features/CalculateTotalGPAFor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "DeleteAsync",
+    "RelativePath": "api/Features/DeleteStudent/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ApplyingGenericRepositoryPattern.Entities.Student",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "EnrollCourseToStudent",
+    "RelativePath": "api/Features/EnrollCourseToStudent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetCoursesWithDepartments",
+    "RelativePath": "api/Features/GetCoursesWithDepartments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetCoursesWithDepartmentsAndPreRequests",
+    "RelativePath": "api/Features/GetCoursesWithDepartmentsAndPreRequests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetCoursesWithPreRequests",
+    "RelativePath": "api/Features/GetCoursesWithPreRequests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetDepartmentsWithCourses",
+    "RelativePath": "api/Features/GetDepartmentsWithCourses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetEnrolledCoursesFor",
+    "RelativePath": "api/Features/GetEnrolledCourses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "GetStudentsWithCoursesRegistered",
+    "RelativePath": "api/Features/GetStudentsWithCoursesRegistered",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "SuggestCoursesAsync",
+    "RelativePath": "api/Features/SuggestCourses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.StudentsController",
+    "Method": "GetStudentAsync",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.StudentsController",
+    "Method": "UpdateStudentAsync",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "ApplyingGenericRepositoryPattern.Dtos.StudentRequestModel",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.StudentsController",
+    "Method": "DeleteStudentAsync",
+    "RelativePath": "api/Students/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.StudentsController",
+    "Method": "GetAllStudentsAsync",
+    "RelativePath": "api/Students/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.StudentsController",
+    "Method": "PostAsync",
+    "RelativePath": "api/Students/Post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FirstName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LastName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Phone",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

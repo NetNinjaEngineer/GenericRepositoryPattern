@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSingleton(serviceProvider =>
 {

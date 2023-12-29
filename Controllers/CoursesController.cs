@@ -1,16 +1,18 @@
 ﻿using ApplyingGenericRepositoryPattern.Dtos;
 using ApplyingGenericRepositoryPattern.Entities;
 using ApplyingGenericRepositoryPattern.Repository;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyingGenericRepositoryPattern.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class CoursesController(IGenericRepository<Course> courseRepository,
-    IGenericRepository<Department> departmentRepository) : ControllerBase
+    IGenericRepository<Department> departmentRepository, IMapper mapper) : ControllerBase
 {
     private readonly IGenericRepository<Course> _courseRepository = courseRepository;
     private readonly IGenericRepository<Department> _departmentRepository = departmentRepository;
+    private readonly IMapper _mapper = mapper;
 
     [HttpPost("Post")]
     public async Task<IActionResult> PostAsync([FromForm] CourseRequestModel model)
@@ -99,6 +101,20 @@ public class CoursesController(IGenericRepository<Course> courseRepository,
         await _courseRepository.SaveChangesAsync();
         return Ok(updatedCourse);
 
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCourseAsync(int id)
+    {
+        var existCourse = await _courseRepository.GetByIdAsync(id);
+        if (existCourse is not null)
+        {
+            var deletedCourse = await _courseRepository.DeleteAsync(existCourse);
+            var mappedCourse = _mapper.Map<MappingCourse>(deletedCourse);
+            return Ok(mappedCourse);
+        }
+
+        return BadRequest($"There is no course with id '{id}' to delete !!!");
     }
 
 }
