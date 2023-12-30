@@ -210,22 +210,6 @@
   },
   {
     "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
-    "Method": "CalculateTotalGPAFor",
-    "RelativePath": "api/Features/CalculateTotalGPAFor",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "studentId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
     "Method": "DeleteAsync",
     "RelativePath": "api/Features/DeleteStudent/{id}",
     "HttpMethod": "DELETE",
@@ -445,32 +429,6 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.TestController",
-    "Method": "MakeTransaction",
-    "RelativePath": "api/Test/CreateTransaction",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.TestController",
-    "Method": "GetDepartmentsWithCourses",
-    "RelativePath": "api/Test/Get",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

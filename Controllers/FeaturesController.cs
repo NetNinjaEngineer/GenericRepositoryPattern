@@ -91,16 +91,16 @@ public class FeaturesController(IFeatureService featureService) : ControllerBase
         return Ok($"{courseName} Assigned To {studentName} successfully");
     }
 
-    [HttpGet("CalculateTotalGPAFor")]
-    public async Task<IActionResult> CalculateTotalGPAFor(int studentId)
-    {
-        var totalGPA = await _featureService.CalculateTotalGPA(studentId);
+    //[HttpGet("CalculateTotalGPAFor")]
+    //public async Task<IActionResult> CalculateTotalGPAFor(int studentId)
+    //{
+    //    var totalGPA = await _featureService.CalculateTotalGPA(studentId);
 
-        if (totalGPA is null)
-            return BadRequest("GPA is Un available");
+    //    if (totalGPA is null)
+    //        return BadRequest("GPA is Un available");
 
-        return Ok(totalGPA);
-    }
+    //    return Ok(totalGPA);
+    //}
 
     [HttpPut("{studentId}/{courseId}")]
     public async Task<IActionResult> UpdateEnrollementAsync(int studentId, int courseId,

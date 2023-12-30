@@ -25,8 +25,6 @@ public interface IFeatureService
 
     Task<IEnumerable<CoursesWithDepartmentsModel>> GetCoursesWithDepartments();
 
-    Task<decimal?> CalculateTotalGPA(int studentId);
-
     Task<Enrollment> UpdateEnrollment(Enrollment enrollment);
 
     Task<Enrollment> GetEnrollmentById(int studentId, int courseId);

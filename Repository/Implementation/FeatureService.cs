@@ -1,6 +1,8 @@
 ﻿using ApplyingGenericRepositoryPattern.Data;
 using ApplyingGenericRepositoryPattern.Dtos;
 using ApplyingGenericRepositoryPattern.Entities;
+using ApplyingGenericRepositoryPattern.Handlers.Helpers;
+using ApplyingGenericRepositoryPattern.Handlers.Implementors;
 using ApplyingGenericRepositoryPattern.Helpers;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -28,62 +30,6 @@ public class FeatureService(ApplicationDbContext context, IMapper mapper) : IFea
         await _context.SaveChangesAsync();
 
         return ValueTuple.Create(courseName, studentName)!;
-
-    }
-
-    public Task<decimal?> CalculateTotalGPA(int studentId)
-    {
-        decimal totalCreditHours = 0;
-        decimal totalGradePoints = 0;
-
-        var result = _context.Enrollments.Any(x => x.StudentMark == null
-            && x.StudentId == studentId);
-
-        if (!result)
-        {
-            var query = from e in context.Enrollments
-                        join c in context.Courses on e.CourseId equals c.CourseId
-                        where e.StudentId == studentId
-                        select new
-                        {
-                            CourseCreditHours = c.CreditHours,
-                            Mark = e.StudentMark
-                        };
-
-            foreach (var item in query)
-            {
-                decimal gradePoint = CalculateRatePoint(item.Mark);
-                totalCreditHours += item.CourseCreditHours;
-                totalGradePoints += gradePoint * item.CourseCreditHours;
-            }
-
-            decimal? gpa = totalCreditHours > 0 ? totalGradePoints / totalCreditHours : 0;
-
-            return Task.FromResult((decimal?)Math.Round(gpa.Value, 1));
-        }
-        else
-            return Task.FromResult(default(decimal?));
-    }
-
-    private decimal CalculateRatePoint(int? studentMark)
-    {
-        decimal ratePoint;
-        if (studentMark >= 90 && studentMark <= 100)
-            ratePoint = 4.0m;
-
-        else if (studentMark >= 80 && studentMark < 90)
-            ratePoint = 3.0m;
-
-        else if (studentMark >= 70 && studentMark < 80)
-            ratePoint = 2.0m;
-
-        else if (studentMark >= 60 && studentMark < 70)
-            ratePoint = 1.0m;
-
-        else
-            ratePoint = 0.0m;
-
-        return ratePoint;
 
     }
 
@@ -190,64 +136,19 @@ public class FeatureService(ApplicationDbContext context, IMapper mapper) : IFea
 
     public async Task<(string, IEnumerable<string>)> SuggestCoursesDependOnDepartments(int studentId)
     {
-        var existStudent = await _context.Students.FirstOrDefaultAsync(
-            x => x.StudentId == studentId);
+        var request = new SuggestCoursesRequest { StudentId = studentId };
+        var gpaProvider = new GPAProvider(_context);
+        var studentExistenceHandler = new StudentExistenceHandler(_context);
+        var studentEnrolledHandler = new StudentEnrolledHandler(_context);
+        var studentGpaHandler = new StudentGPAHandler(gpaProvider);
+        var gpaBetweenAllowedRangeHandler = new GPABetweenAllowedRangeHandler(studentGpaHandler);
+        var gpaExceededAllowedRangeHandler = new GPAExceededAllowedRangeHandler(studentGpaHandler);
+        var suggestCoursesHandler = new SuggestCoursesHandler(studentExistenceHandler, studentEnrolledHandler,
+            studentGpaHandler, gpaProvider, gpaBetweenAllowedRangeHandler, gpaExceededAllowedRangeHandler);
 
-        var enrolled = _context.Enrollments.Any(e => e.StudentId == studentId);
+        var response = await suggestCoursesHandler.HandleAsync(request);
+        return ValueTuple.Create(response.Message!, response.SuggestionCourses!);
 
-        if (existStudent is not null && enrolled)
-        {
-            var totalGPA = await CalculateTotalGPA(studentId);
-
-            if (totalGPA.HasValue)
-            {
-                if (totalGPA >= 1.8m && totalGPA <= 2.5m)
-                {
-                    var suggestedCourses = GetSuggestedCourses(studentId);
-
-                    return ValueTuple.Create($"Suggested Courses For {string.Concat(existStudent.FirstName, ' ',
-                        existStudent.LastName)}", suggestedCourses);
-                }
-                else if (totalGPA > 2.5m)
-                    return ValueTuple.Create($"GPA for '{string.Concat(existStudent.FirstName, ' ',
-                        existStudent.LastName)}' in safe side", Enumerable.Empty<string>());
-                else
-                    return ValueTuple.Create($"GPA is not in allowed ranges to suggest courses", Enumerable.Empty<string>());
-            }
-            else
-                return ValueTuple.Create("There is no suggested courses, GPA is Unavailable", Enumerable.Empty<string>());
-
-        }
-
-        return ValueTuple.Create($"Student may be not exist or not enrolled", Enumerable.Empty<string>());
-
-    }
-
-    private IEnumerable<string> GetSuggestedCourses(int studentId)
-    {
-        var departmemt = (from course in _context.Courses
-                          join department in _context.Departments
-                          on course.DepartmentId equals department.DepartmentId
-                          join enrollment in _context.Enrollments
-                          on course.CourseId equals enrollment.CourseId
-                          join student in _context.Students
-                          on enrollment.StudentId equals student.StudentId
-                          where student.StudentId == studentId
-                          select department.DepartmentName).FirstOrDefault();
-
-        var suggestedCourses = (from course in _context.Courses
-                                join department in _context.Departments
-                                on course.DepartmentId equals department.DepartmentId
-                                join enrollment in _context.Enrollments
-                                on course.CourseId equals enrollment.CourseId
-                                join student in _context.Students
-                                on enrollment.StudentId equals student.StudentId
-                                where course.PreRequest == null && department.DepartmentName!.Equals(departmemt)
-                                 && !_context.Enrollments.Any(e => e.CourseId == course.CourseId &&
-                                 e.StudentId == studentId)
-                                select course.CourseName).Distinct();
-
-        return suggestedCourses.AsEnumerable();
     }
 
     public async Task<Student> DeleteStudent(int studentId)
