@@ -1,6 +1,6 @@
-﻿namespace ApplyingGenericRepositoryPattern.Dtos;
+﻿namespace ApplyingGenericRepositoryPattern.DTO;
 
-public class MappingCourse
+public class CourseDto
 {
     public int CourseId { get; set; }
     public string? CourseName { get; set; }
@@ -8,5 +8,5 @@ public class MappingCourse
     public int CreditHours { get; set; }
     public int? PreRequest { get; set; }
     public int? CourseMark { get; set; }
-    public int DepartmentId { get; set; }
+    public string? Department { get; set; }
 }

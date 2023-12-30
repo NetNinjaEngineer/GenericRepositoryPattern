@@ -2,7 +2,7 @@
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Implementors;
 
-public class GPABetweenAllowedRangeHandler : IRequestHandler<SuggestCoursesRequest, bool>
+public sealed class GPABetweenAllowedRangeHandler : IRequestHandler<SuggestCoursesRequest, bool>
 {
     private readonly StudentGPAHandler _studentGPAHandler;
 

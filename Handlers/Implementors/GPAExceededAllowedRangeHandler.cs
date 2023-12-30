@@ -2,7 +2,7 @@
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Implementors;
 
-public class GPAExceededAllowedRangeHandler : IRequestHandler<SuggestCoursesRequest, bool>
+public sealed class GPAExceededAllowedRangeHandler : IRequestHandler<SuggestCoursesRequest, bool>
 {
     private readonly StudentGPAHandler _studentGPAHandler;
 

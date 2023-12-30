@@ -2,7 +2,7 @@
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Implementors;
 
-public class StudentGPAHandler : IRequestHandler<SuggestCoursesRequest, decimal?>
+public sealed class StudentGPAHandler : IRequestHandler<SuggestCoursesRequest, decimal?>
 {
     private readonly GPAProvider _gpaProvider;
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Implementors;
 
-public class StudentEnrolledHandler(ApplicationDbContext context)
+public sealed class StudentEnrolledHandler(ApplicationDbContext context)
     : RequestHandler<SuggestCoursesRequest, bool>(context)
 {
     public override async Task<bool> HandleAsync(SuggestCoursesRequest request)

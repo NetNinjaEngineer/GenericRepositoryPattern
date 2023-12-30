@@ -1,12 +1,11 @@
-﻿namespace ApplyingGenericRepositoryPattern.Dtos;
+﻿namespace ApplyingGenericRepositoryPattern.DTO;
 
-public class CourseDto
+public class CourseRequestModel
 {
-    public int CourseId { get; set; }
     public string? CourseName { get; set; }
     public string? CourseCode { get; set; }
     public int CreditHours { get; set; }
     public int? PreRequest { get; set; }
     public int? CourseMark { get; set; }
-    public string? Department { get; set; }
+    public int DepartmentId { get; set; }
 }

@@ -1,5 +1,6 @@
 using ApplyingGenericRepositoryPattern.DAL;
 using ApplyingGenericRepositoryPattern.Data;
+using ApplyingGenericRepositoryPattern.Handlers.Helpers;
 using ApplyingGenericRepositoryPattern.Repository;
 using ApplyingGenericRepositoryPattern.Repository.Implementation;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IFeatureService, FeatureService>();
+builder.Services.AddScoped(typeof(GPAProvider));
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSingleton(serviceProvider =>
 {

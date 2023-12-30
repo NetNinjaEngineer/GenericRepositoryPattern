@@ -1,13 +1,15 @@
 ﻿using ApplyingGenericRepositoryPattern.Entities;
+using ApplyingGenericRepositoryPattern.Handlers.Helpers;
 using ApplyingGenericRepositoryPattern.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyingGenericRepositoryPattern.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-public class FeaturesController(IFeatureService featureService) : ControllerBase
+public class FeaturesController(IFeatureService featureService, GPAProvider gpaProvider) : ControllerBase
 {
     private readonly IFeatureService _featureService = featureService;
+    private readonly GPAProvider _gpaProvider = gpaProvider;
 
     [Route("GetStudentsWithCoursesRegistered")]
     [HttpGet]
@@ -65,15 +67,6 @@ public class FeaturesController(IFeatureService featureService) : ControllerBase
             return BadRequest("Not valid course or student, " +
                 "can not enroll the course, try again !!!");
 
-        // check count of courses enrolled for this student
-        //var exceededCourses = (
-        //    _featureService.GetEnrollmentsCount(studentId).Result.HasValue &&
-        //    _featureService.GetEnrollmentsCount(studentId).Result!.Value == 6
-        //    ) ? BadRequest("You Exceeded The Limit of courses") : null;
-
-        //if (exceededCourses is not null)
-        //    return exceededCourses;
-
         // case2 student does not register course if already register PreRequest course
         var (taken, course) = await _featureService.CheckPreRequestCourse(courseId, studentId);
 
@@ -91,16 +84,16 @@ public class FeaturesController(IFeatureService featureService) : ControllerBase
         return Ok($"{courseName} Assigned To {studentName} successfully");
     }
 
-    //[HttpGet("CalculateTotalGPAFor")]
-    //public async Task<IActionResult> CalculateTotalGPAFor(int studentId)
-    //{
-    //    var totalGPA = await _featureService.CalculateTotalGPA(studentId);
+    [HttpGet("CalculateTotalGPAFor")]
+    public async Task<IActionResult> CalculateTotalGPAFor(int studentId)
+    {
+        var totalGPA = await _gpaProvider.CalculateTotalGPA(studentId);
 
-    //    if (totalGPA is null)
-    //        return BadRequest("GPA is Un available");
+        if (totalGPA is null)
+            return BadRequest("GPA is Un available");
 
-    //    return Ok(totalGPA);
-    //}
+        return Ok(totalGPA);
+    }
 
     [HttpPut("{studentId}/{courseId}")]
     public async Task<IActionResult> UpdateEnrollementAsync(int studentId, int courseId,

@@ -2,14 +2,9 @@
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Helpers;
 
-public class GPAProvider
+public class GPAProvider(ApplicationDbContext context)
 {
-    private readonly ApplicationDbContext _context;
-
-    public GPAProvider(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    private readonly ApplicationDbContext _context = context;
 
     public Task<decimal?> CalculateTotalGPA(int studentId)
     {

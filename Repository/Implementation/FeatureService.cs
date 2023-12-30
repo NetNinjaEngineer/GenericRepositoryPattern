@@ -1,5 +1,5 @@
 ﻿using ApplyingGenericRepositoryPattern.Data;
-using ApplyingGenericRepositoryPattern.Dtos;
+using ApplyingGenericRepositoryPattern.DTO;
 using ApplyingGenericRepositoryPattern.Entities;
 using ApplyingGenericRepositoryPattern.Handlers.Helpers;
 using ApplyingGenericRepositoryPattern.Handlers.Implementors;

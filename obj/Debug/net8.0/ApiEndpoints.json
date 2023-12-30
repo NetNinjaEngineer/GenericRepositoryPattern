@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "ApplyingGenericRepositoryPattern.Dtos.CourseRequestModel",
+        "Type": "ApplyingGenericRepositoryPattern.DTO.CourseRequestModel",
         "IsRequired": true
       },
       {
@@ -134,7 +134,7 @@
       },
       {
         "Name": "model",
-        "Type": "ApplyingGenericRepositoryPattern.Dtos.DepartmentRequestModel",
+        "Type": "ApplyingGenericRepositoryPattern.DTO.DepartmentRequestModel",
         "IsRequired": true
       }
     ],
@@ -176,7 +176,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ApplyingGenericRepositoryPattern.Dtos.DepartmentRequestModel",
+        "Type": "ApplyingGenericRepositoryPattern.DTO.DepartmentRequestModel",
         "IsRequired": true
       }
     ],
@@ -202,6 +202,22 @@
       },
       {
         "Name": "studentMark",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApplyingGenericRepositoryPattern.Controllers.FeaturesController",
+    "Method": "CalculateTotalGPAFor",
+    "RelativePath": "api/Features/CalculateTotalGPAFor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentId",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -363,7 +379,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "ApplyingGenericRepositoryPattern.Dtos.StudentRequestModel",
+        "Type": "ApplyingGenericRepositoryPattern.DTO.StudentRequestModel",
         "IsRequired": true
       },
       {

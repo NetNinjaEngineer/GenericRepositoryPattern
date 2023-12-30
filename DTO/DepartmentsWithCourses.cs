@@ -1,4 +1,4 @@
-﻿namespace ApplyingGenericRepositoryPattern.Dtos;
+﻿namespace ApplyingGenericRepositoryPattern.DTO;
 
 public class DepartmentsWithCourses
 {

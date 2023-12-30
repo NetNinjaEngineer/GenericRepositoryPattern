@@ -2,7 +2,7 @@
 
 namespace ApplyingGenericRepositoryPattern.Handlers.Implementors;
 
-public class SuggestCoursesHandler : IRequestHandler<SuggestCoursesRequest, SuggestCoursesResponse>
+public sealed class SuggestCoursesHandler : IRequestHandler<SuggestCoursesRequest, SuggestCoursesResponse>
 {
     private readonly StudentExistenceHandler _studentExistenceHandler;
     private readonly StudentEnrolledHandler _studentEnrolledHandler;

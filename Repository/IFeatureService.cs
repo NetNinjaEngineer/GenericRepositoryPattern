@@ -1,4 +1,4 @@
-﻿using ApplyingGenericRepositoryPattern.Dtos;
+﻿using ApplyingGenericRepositoryPattern.DTO;
 using ApplyingGenericRepositoryPattern.Entities;
 using ApplyingGenericRepositoryPattern.Helpers;
 
