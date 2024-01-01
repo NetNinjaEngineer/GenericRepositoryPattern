@@ -46,34 +46,13 @@ public class FeatureService(ApplicationDbContext context, IMapper mapper) : IFea
 
     public async Task<(bool, string)> CheckPreRequestCourse(int courseId, int studentId)
     {
-        int? hasPreRequest = null;
-
-        var query = _context.Courses.Where(x => x.PreRequest != null && x.CourseId == courseId)
-            .FirstOrDefault()?.PreRequest;
-
-        if (query == null)
-            hasPreRequest = 0;
-        else
-            hasPreRequest = query;
-
-        var courseWithNoPreRequest = (from course in _context.Courses
-                                      join coursePre in _context.Courses on
-                                     course.CourseId equals coursePre.CourseId
-                                      where course.PreRequest == null && coursePre.CourseId == courseId
-                                      select course).FirstOrDefault();
-
-        if (courseWithNoPreRequest != null)
-            return (true, string.Empty);
-
-        var checkTakenCourse = await _context.Enrollments.FirstOrDefaultAsync(x =>
-            x.CourseId == hasPreRequest && x.StudentId == studentId);
-
-        if (checkTakenCourse is not null)
-            return (true, string.Empty);
-        else
-            return (false, _context.Courses.FirstOrDefault(x
-                => x.CourseId == hasPreRequest)!.CourseName!);
-
+        var gpaProvider = new GPAProvider(_context);
+        var studentPreRequestCourseHandler = new StudentPreRequestCourseHandler(_context);
+        var studentHasEnrollmentHandler = new StudentHasEnrollmentHandler(_context, gpaProvider);
+        studentPreRequestCourseHandler.SetNext(studentHasEnrollmentHandler);
+        var request = new CoursePreRequestRequest() { CourseId = courseId, StudentId = studentId };
+        var response = await studentPreRequestCourseHandler.HandleAsync(request);
+        return ValueTuple.Create(response.TakenCourse!, response.Course!);
     }
 
     public async Task<bool> CheckValidIDS(int courseId, int studentId)
@@ -136,17 +115,19 @@ public class FeatureService(ApplicationDbContext context, IMapper mapper) : IFea
 
     public async Task<(string, IEnumerable<string>)> SuggestCoursesDependOnDepartments(int studentId)
     {
-        var request = new SuggestCoursesRequest { StudentId = studentId };
-        var gpaProvider = new GPAProvider(_context);
-        var studentExistenceHandler = new StudentExistenceHandler(_context);
-        var studentEnrolledHandler = new StudentEnrolledHandler(_context);
-        var studentGpaHandler = new StudentGPAHandler(gpaProvider);
-        var gpaBetweenAllowedRangeHandler = new GPABetweenAllowedRangeHandler(studentGpaHandler);
-        var gpaExceededAllowedRangeHandler = new GPAExceededAllowedRangeHandler(studentGpaHandler);
-        var suggestCoursesHandler = new SuggestCoursesHandler(studentExistenceHandler, studentEnrolledHandler,
-            studentGpaHandler, gpaProvider, gpaBetweenAllowedRangeHandler, gpaExceededAllowedRangeHandler);
+        var provider = new GPAProvider(context);
 
-        var response = await suggestCoursesHandler.HandleAsync(request);
+        var studentExistenceAndEnrolledHandler = new StudentExistenceAndEnrolledHandler(context);
+        var studentGpaExistenceHandler = new StudentGpaExistenceHandler(context, provider);
+        var gpaBetweenAllowedRangeHandler = new GPABetweenAllowedRangeHandler(context, provider);
+        var gpaExceededAllowedRangeHandler = new GPAExceededAllowedRangeHandler(context, provider);
+
+        studentExistenceAndEnrolledHandler.SetNext(studentGpaExistenceHandler);
+        studentGpaExistenceHandler.SetNext(gpaBetweenAllowedRangeHandler);
+        gpaBetweenAllowedRangeHandler.SetNext(gpaExceededAllowedRangeHandler);
+
+        var suggestCoursesRequest = new SuggestCoursesRequest() { StudentId = studentId };
+        var response = await studentExistenceAndEnrolledHandler.HandleAsync(suggestCoursesRequest);
         return ValueTuple.Create(response.Message!, response.SuggestionCourses!);
 
     }

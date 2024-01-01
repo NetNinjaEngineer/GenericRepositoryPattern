@@ -89,4 +89,12 @@ public class GPAProvider(ApplicationDbContext context)
         return suggestedCourses.AsEnumerable();
     }
 
+    public Task<int?> GetPreRequestId(int courseId)
+    {
+        var query = _context.Courses
+            .FirstOrDefault(x => x.CourseId == courseId)?.PreRequest;
+
+        return Task.FromResult(query);
+    }
+
 }
